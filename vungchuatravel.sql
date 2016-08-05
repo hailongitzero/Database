@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-08-05 14:28:30
+Date: 2016-08-05 16:10:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,16 +20,24 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `master_code`;
 CREATE TABLE `master_code` (
+  `CID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Master code ID',
   `CD_TP` varchar(20) NOT NULL COMMENT 'master code type',
   `LANG_CD` varchar(2) NOT NULL COMMENT 'language code',
   `MEANING` varchar(100) NOT NULL COMMENT 'code meanning',
   `SEQ` int(1) NOT NULL COMMENT 'code sequence',
-  `CODE` varchar(1) NOT NULL COMMENT 'code'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `CODE` varchar(1) NOT NULL COMMENT 'code',
+  `CD_MEANING` varchar(300) DEFAULT NULL COMMENT 'Code meaning',
+  PRIMARY KEY (`CID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of master_code
 -- ----------------------------
+INSERT INTO `master_code` VALUES ('1', 'IMG_TP', 'US', 'Image upload type', '1', 'R', 'Image url directly reference');
+INSERT INTO `master_code` VALUES ('2', 'IMG_TP', 'US', 'Image upload type', '2', 'U', 'Image upload url reference');
+INSERT INTO `master_code` VALUES ('3', 'IMG_TP', 'VI', 'Loại hình(ảnh)', '1', 'R', 'Tham chiếu trực tiếp đến trang lưu trữ');
+INSERT INTO `master_code` VALUES ('4', 'IMG_TP', 'VI', 'Loại hình(ảnh)', '2', 'U', 'Hình upload luu trữ trên server');
+INSERT INTO `master_code` VALUES ('5', '', '', '', '0', '', null);
 
 -- ----------------------------
 -- Table structure for menu_category
@@ -95,54 +103,58 @@ CREATE TABLE `tb_location` (
 -- ----------------------------
 -- Records of tb_location
 -- ----------------------------
+INSERT INTO `tb_location` VALUES ('L00001', 'VI', 'QBA', 'Việt Nam', 'VietNam', 'Quảng Bình', 'Quang Binh');
+INSERT INTO `tb_location` VALUES ('L00002', 'VI', 'HUE', 'Việt Nam', 'VietNam', 'Huế', 'Hue');
+INSERT INTO `tb_location` VALUES ('L00003', 'VI', 'DNA', 'Việt Nam', 'VietNam', 'Đà Nẵng', 'Da Nang');
+INSERT INTO `tb_location` VALUES ('L00004', 'TH', 'BKA', 'Thái Lan', 'Thailand', 'Băng Cốc', 'Bangkok');
 
 -- ----------------------------
 -- Table structure for tb_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_menu`;
 CREATE TABLE `tb_menu` (
-  `MN_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Menu code',
+  `MN_ID` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Menu code',
   `MN_SEQ` int(2) NOT NULL COMMENT 'Menu Sequence',
-  `MN_GRP_ID` int(11) NOT NULL COMMENT 'Menu group code',
+  `MN_GRP_ID` varchar(4) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Menu group code',
   `MN_NM_EN` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'menu name in english',
   `MN_NM_VI` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Menu name in Vietnamese',
   PRIMARY KEY (`MN_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='table menu content';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='table menu content';
 
 -- ----------------------------
 -- Records of tb_menu
 -- ----------------------------
-INSERT INTO `tb_menu` VALUES ('1', '1', '1', 'About Us', 'Giới Thiệu');
-INSERT INTO `tb_menu` VALUES ('2', '2', '1', 'Tours', 'Tours');
-INSERT INTO `tb_menu` VALUES ('3', '3', '1', 'News', 'Tin Tức');
-INSERT INTO `tb_menu` VALUES ('4', '4', '1', 'Services', 'Dịch Vụ');
-INSERT INTO `tb_menu` VALUES ('5', '5', '1', 'Hotel', 'Khách Sạn');
-INSERT INTO `tb_menu` VALUES ('6', '6', '1', 'Restaurant', 'Nhà Hàng');
-INSERT INTO `tb_menu` VALUES ('7', '7', '1', 'Contact', 'Liên Hệ');
-INSERT INTO `tb_menu` VALUES ('8', '8', '1', 'Payment', 'Thanh Toán');
+INSERT INTO `tb_menu` VALUES ('MN001', '1', 'MG01', 'About Us', 'Giới Thiệu');
+INSERT INTO `tb_menu` VALUES ('MN002', '2', 'MG01', 'Tours', 'Tours');
+INSERT INTO `tb_menu` VALUES ('MN003', '3', 'MG01', 'News', 'Tin Tức');
+INSERT INTO `tb_menu` VALUES ('MN004', '4', 'MG01', 'Services', 'Dịch Vụ');
+INSERT INTO `tb_menu` VALUES ('MN005', '5', 'MG01', 'Hotel', 'Khách Sạn');
+INSERT INTO `tb_menu` VALUES ('MN006', '6', 'MG01', 'Restaurant', 'Nhà Hàng');
+INSERT INTO `tb_menu` VALUES ('MN007', '7', 'MG01', 'Contact', 'Liên Hệ');
+INSERT INTO `tb_menu` VALUES ('MN008', '8', 'MG01', 'Payment', 'Thanh Toán');
 
 -- ----------------------------
 -- Table structure for tb_menu_group
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_menu_group`;
 CREATE TABLE `tb_menu_group` (
-  `MN_GRP_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Menu group code',
+  `MN_GRP_ID` varchar(4) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Menu group code',
   `MN_GRP_NM` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Menu group name',
   `MN_GRP_DESC` varchar(200) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Menu group description',
   PRIMARY KEY (`MN_GRP_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of tb_menu_group
 -- ----------------------------
-INSERT INTO `tb_menu_group` VALUES ('1', 'Main menu', 'Main menu list of website');
+INSERT INTO `tb_menu_group` VALUES ('MG01', 'Main menu', 'Main menu list of website');
 
 -- ----------------------------
 -- Table structure for tb_slide
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_slide`;
 CREATE TABLE `tb_slide` (
-  `SLD_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'SLIDE ID',
+  `SLD_ID` varchar(5) COLLATE utf8_unicode_ci NOT NULL COMMENT 'SLIDE ID',
   `SLD_SEQ` int(2) NOT NULL DEFAULT '0' COMMENT 'SLIDE DISPLAY SEQUENCE',
   `SLD_TITLE` varchar(150) COLLATE utf8_unicode_ci NOT NULL COMMENT 'SLIDE TITLE',
   `SLD_CONTENT` varchar(300) COLLATE utf8_unicode_ci NOT NULL COMMENT 'SLIDE CONTENT',
@@ -150,16 +162,16 @@ CREATE TABLE `tb_slide` (
   `SLD_IMG_ALT` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'SLIDE IMAGE DESCRIPTION',
   `SLD_LINK` varchar(300) COLLATE utf8_unicode_ci NOT NULL COMMENT 'SLIDE LINK',
   PRIMARY KEY (`SLD_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='PAGE SLIDE';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='PAGE SLIDE';
 
 -- ----------------------------
 -- Records of tb_slide
 -- ----------------------------
-INSERT INTO `tb_slide` VALUES ('1', '1', 'Vung CHua Travel slide title', 'Vung CHua Travel slide content', 'https://static.artofwhere.net/img/home-slider/girl-wearing-yoga-leggings.jpg', 'Picture of a girl wearing custom printed yoga leggings', '#');
-INSERT INTO `tb_slide` VALUES ('2', '2', 'Vung CHua Travel slide title 2', 'Vung CHua Travel slide content2', 'https://static.artofwhere.net/img/pages/kimonos/new-kimono-style-bg.jpg', 'icture of a girl wearing a draped kimono', '#');
-INSERT INTO `tb_slide` VALUES ('3', '3', 'Vung chua travel tour title 3', 'Vung chua travel tour content 3', 'https://static.artofwhere.net/img/pages/drop-ship/bigcartel/artist-workplace.jpg', 'Picture of an artist workspac', '#');
-INSERT INTO `tb_slide` VALUES ('4', '4', 'Vung chua Travel guides title 4', 'Vung chua Travel guides content 4', 'https://static.artofwhere.net/img/home-slider/art-prints.jpg', 'Picture of framed fine art prints', '#');
-INSERT INTO `tb_slide` VALUES ('5', '5', 'Vung chua Travel guides title 5', 'Vung chua Travel guides title 5', 'https://static.artofwhere.net/img/home-slider/girl-sewing.jpg', 'Picture of a girl sewing products', '#');
+INSERT INTO `tb_slide` VALUES ('SL001', '1', 'Vung CHua Travel slide title', 'Vung CHua Travel slide content', 'https://static.artofwhere.net/img/home-slider/girl-wearing-yoga-leggings.jpg', 'Picture of a girl wearing custom printed yoga leggings', '#');
+INSERT INTO `tb_slide` VALUES ('SL002', '2', 'Vung CHua Travel slide title 2', 'Vung CHua Travel slide content2', 'https://static.artofwhere.net/img/pages/kimonos/new-kimono-style-bg.jpg', 'icture of a girl wearing a draped kimono', '#');
+INSERT INTO `tb_slide` VALUES ('SL003', '3', 'Vung chua travel tour title 3', 'Vung chua travel tour content 3', 'https://static.artofwhere.net/img/pages/drop-ship/bigcartel/artist-workplace.jpg', 'Picture of an artist workspac', '#');
+INSERT INTO `tb_slide` VALUES ('SL004', '4', 'Vung chua Travel guides title 4', 'Vung chua Travel guides content 4', 'https://static.artofwhere.net/img/home-slider/art-prints.jpg', 'Picture of framed fine art prints', '#');
+INSERT INTO `tb_slide` VALUES ('SL005', '5', 'Vung chua Travel guides title 5', 'Vung chua Travel guides title 5', 'https://static.artofwhere.net/img/home-slider/girl-sewing.jpg', 'Picture of a girl sewing products', '#');
 
 -- ----------------------------
 -- Table structure for tb_tours
